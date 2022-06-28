@@ -1,0 +1,46 @@
+
+
+/* o presente em si */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: transparent;
+    position: relative;
+    width: var(--max-prize-width);
+    height: var(--max-prize-height);
+    transform: scale(var(--prize-scale)); 
+}
+
+/* tampa da caixa */
+.top {
+    width: 100px;
+    height: 20%;
+    background-image: linear-gradient(to bottom, green, rgb(1, 95, 1));
+    border-bottom: 1px solid black;
+}
+
+/* laço vertical */
+.lace1 {
+    background-image: linear-gradient(to bottom, red, rgb(195, 3, 3));
+    position: absolute;
+    width: var(--lace-thickness); /* grossura do laço 1*/
+    height: 100%; /* comprimento do laço 1 */
+}
+
+/* laço horizontal */
+.lace2 {
+    background-color: red;
+    position: absolute;
+    top: 40px;
+    width: 90%; /* comprimento do laço 2*/
+    height: var(--lace-thickness); /* grossura do laço 2 */
+}
+
+/* caixa */
+.body {
+    width: 90%;
+    height: 80%;
+    background-image: linear-gradient(to bottom, rgb(1, 95, 1), green);
+}
+
