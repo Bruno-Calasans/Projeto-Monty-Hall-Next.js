@@ -2,10 +2,14 @@
 :root {
   
   /* relacionadas com o elemento prize*/
-  --prize-scale: 0.8;
+  --prize-scale: 0.5;
   --max-prize-width: 100px;
   --max-prize-height: 80px;
   --lace-thickness: 15px;
+
+  /* relacionadas com o elemento door*/
+  --door-area-width: 120px;
+  --door-area-height: 200px;
 
 }
 

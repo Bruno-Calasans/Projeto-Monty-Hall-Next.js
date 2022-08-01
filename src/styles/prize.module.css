@@ -9,7 +9,7 @@
     position: relative;
     width: var(--max-prize-width);
     height: var(--max-prize-height);
-    transform: scale(var(--prize-scale)); 
+    transform: scale(var(--prize-scale));
 }
 
 /* tampa da caixa */
