@@ -1,26 +1,56 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import style from '../styles/door.module.css'
 import Prize from './Prize';
 
-export default function Door({number, open, prize}){
+export default function Door({number, prize, onSelection, onOpen}){
 
-    let [select, setSelected] = useState(false)
+    let [selected, setSelected] = useState(false)
+    let [opened, setOpened] = useState(false)
 
     const toggleSelection = (e) => {
-        setSelected(!select)
+
+        if(!opened) {
+            setSelected(!selected)
+        }
     }
+
+    const open = (e) => {
+        setOpened(true)
+    }
+
+    useEffect(() => {
+
+        if(onSelection) {
+            onSelection(selected)
+        }
+
+    }, [onSelection, selected])
+
+    useEffect(() => {
+
+        if(onOpen) {
+            onOpen(opened)
+        }
+
+        if(opened){ 
+            setSelected(false) 
+        }
+
+    }, [onOpen, opened])
+
 
     return (
         
         <div className={style.container} onClick={toggleSelection}>
 
-            <div className={`${style.frame} ${select ? style.selected : ''}`}>
+            <div className={`${style.frame} ${selected ? style.selected : ''}`}>
 
-                <div className={`${style.area} ${open ? style.opened : ''}`}>
+                <div className={`${style.area} ${opened ? style.opened : ''}`}>
 
                     <div className={style.number}>{number}</div>
-                    <div className={style.knob}></div>
-                    {(open && prize) && <Prize />}
+                    <div className={style.knob} onClick={open}></div>
+
+                    {(opened && prize) && <Prize />}
                     
                 </div>
 
