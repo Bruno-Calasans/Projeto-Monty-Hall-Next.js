@@ -2,10 +2,17 @@ import { useEffect, useState } from 'react'
 import style from '../styles/door.module.css'
 import Prize from './Prize';
 
-export default function Door({number, prize, onSelection, onOpen}){
+export default function Door({
+    number, 
+    isSelected, 
+    isOpened, 
+    prize, 
+    onSelection, 
+    onOpen,
+}){
 
-    let [selected, setSelected] = useState(false)
-    let [opened, setOpened] = useState(false)
+    let [selected, setSelected] = useState(isSelected)
+    let [opened, setOpened] = useState(isOpened)
 
     const toggleSelection = (e) => {
 
@@ -21,10 +28,10 @@ export default function Door({number, prize, onSelection, onOpen}){
     useEffect(() => {
 
         if(onSelection) {
-            onSelection(selected)
+            onSelection(selected ? number : null)
         }
 
-    }, [onSelection, selected])
+    }, [number, onSelection, selected])
 
     useEffect(() => {
 
@@ -37,7 +44,6 @@ export default function Door({number, prize, onSelection, onOpen}){
         }
 
     }, [onOpen, opened])
-
 
     return (
         
