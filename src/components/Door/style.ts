@@ -13,15 +13,6 @@ export const Container = styled.div`
     margin-left: 5px;
     margin-right: 5px;
 
-
-    /* porta aberta */
-    .opened {
-        background-color: darkgray;
-        justify-content: flex-end;
-    }
-
-    .opened .number { display: none; }
-    .opened .knob { display: none }
 `
 
 /* primeiro nível */
@@ -82,6 +73,8 @@ export const Knob = styled.div`
     width: 20px;
     height: 20px;
     border-radius: 50%;
+
+    cursor: pointer;
 `
 
 /* terceiro nível */

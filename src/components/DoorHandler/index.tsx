@@ -1,6 +1,8 @@
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { DoorModel } from "../../models/Door" ;
+import { Container, Title, Content, Buttons } from './style'
 import Door from "../Door";
 import ConfirmationModal from './../ConfirmationModal';
 
@@ -23,10 +25,19 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
 
         if(doorObjs && !gameover) {
 
-            let updatedDoorObjs = doorObjs.map(door => {
-                door.isSelected = (door.number == selectedDoorNumber)
+            const updatedDoorObjs = doorObjs.map(door => {
+
+                // alterna a porta clicada
+                if(door.number == selectedDoorNumber) {
+                   door.isSelected = !door.isSelected 
+
+                // deseleciona todas as outras 
+                }else { 
+                    door.isSelected = false 
+                }
                 return door
             })
+
             setDoorObjs(updatedDoorObjs)
             setSelectedDoor(selectedDoorNumber)
         }
@@ -49,7 +60,6 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
             let updatedDoorObjs = doorObjs.map(door => {
 
                 if(door.number == selectedDoor) { 
-                    
                     door.isOpen = true
 
                     // encerra o jogo se a porta aberta tiver o presente
@@ -87,7 +97,8 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
         if(doorObjs) {
 
             return doorObjs.map(door => (
-            <Door 
+            <Door
+
             key={door.number} 
             door={door}
             onSelection={selectionHandler}
@@ -133,18 +144,26 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
     }
 
     return (
-        <>
-            <button onClick={reset}>Resetar</button>
+        <Container>
 
-            { loadDoorComponents() }
+            <Title>Escolha uma porta</Title>
+
+            <Content>{ loadDoorComponents() }</Content>
 
             <ConfirmationModal 
             show={confirmationModal}
             title="Confirmar"
-            msg={`Deseja reamente abrir a porta ${selectedDoor}?`}
+            msg={`Deseja realmente abrir a porta ${selectedDoor}?`}
             onConfirmation={confirmationHandler}
             />
-        </> 
+
+            <Buttons>
+                <button className="actionBtn" onClick={reset}>Reiniciar</button>
+                <Link href='/'>
+                    <button className="actionBtn" onClick={reset}>Voltar Home</button>
+                </Link>
+            </Buttons>
+        </Container> 
     )
 }
 

@@ -11,6 +11,7 @@ export const Container = styled.div.attrs((props: ContainerProps) => ({
     align-items: center;
     background-color: transparent;
     position: relative;
+    bottom: -19px;
     width: var(--max-prize-width);
     height: var(--max-prize-height);
     transform: scale(var(--prize-scale));

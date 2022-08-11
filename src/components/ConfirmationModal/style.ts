@@ -12,27 +12,11 @@ export const Container = styled.div`
     background-color: rgba(0,0,0,0.4); 
     opacity: 1;
     width: 100%;
-    height: 100%;
-
-    .actionBtn {
-        font-weight: bold;
-        padding: 8px;
-        cursor: pointer;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        opacity: 0.8;
-    }
-    
-    .actionBtn:hover {
-        opacity: 1;
-    }
+    height: 100%; 
 `
 
 export const Content = styled.div`
-
     position: absolute;
-    top: 15%;
     display: flex;
     width: 350px;
     height: 160px;
@@ -80,8 +64,8 @@ export const Bottom = styled.div`
     justify-content: center;
 
     button {
+        color: white;
         background-color: #1A73FF;
-        cursor: pointer;
         margin: 2px;
         padding: 8px;
     }
