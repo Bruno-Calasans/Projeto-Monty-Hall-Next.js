@@ -2,7 +2,7 @@
 import React from 'react'
 import { Container, Top, Lace1, Lace2, Body } from './style'
 
-type PrizeProps = { show: boolean }
+type PrizeProps = { show?: boolean}
 
 export default function Prize({show}: PrizeProps){
 

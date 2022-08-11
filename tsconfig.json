@@ -101,7 +101,7 @@
   "include": [
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/pages/index.js"  ],
   "exclude": [
     "node_modules"
   ]

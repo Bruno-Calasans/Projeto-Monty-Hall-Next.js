@@ -1,27 +1,21 @@
-import { useEffect, useState } from 'react'
-//import style from '../../styles/door.module.css'
 import {Area, Container, Foot, Frame, Knob, Number} from './style'
+import {  DoorProps } from '../../Types/Door'
 import Prize from '../Prize'
 
-interface DoorProps {
-    number: number | string,
-    isSelected: boolean
-    isOpen: boolean
-    hasPrize: boolean
-}
+export default function Door({door, onSelection, onOpen}: DoorProps){
 
-export default function Door({number, isSelected, isOpen, hasPrize}: DoorProps){
+    const {number, isSelected, isOpen, hasPrize} = door
 
     const selectedStyle = (isSelected && !isOpen) ? 'selected': ''
     const openStyle = isOpen ? 'open': ''
 
     return (
     
-        <Container>
+        <Container onClick={e => onSelection(number)}>
             <Frame className={selectedStyle}>
                 <Area className={openStyle}>
                     <Number className='number'>{number}</Number>
-                    <Knob className='knob'></Knob>
+                    <Knob onClick={e => onOpen(number)} className='knob'></Knob>
                     <Prize show={hasPrize && isOpen}/>
                 </Area>
             </Frame>
