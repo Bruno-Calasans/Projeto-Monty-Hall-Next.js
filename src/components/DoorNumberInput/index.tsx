@@ -21,6 +21,7 @@ export default function DoorNumberInput({min, max, onChange }: DoorNumberInput) 
         setDoorsNumber(newValue)
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { onChange(doorsNumber) }, [doorsNumber])
 
     return(

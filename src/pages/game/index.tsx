@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Container } from './style'
+import { Container } from '../../style/game.style'
 import DoorHandler from '../../components/DoorHandler'
 import { randInt } from '../../functions/others'
 

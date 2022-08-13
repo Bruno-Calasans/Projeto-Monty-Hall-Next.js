@@ -29,6 +29,7 @@ export default function PrizedDoorInput({ min, max, onChange }: PrizedDoorInputP
         setChecked(e.target.checked)
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { onChange(selectedPrizedDoor) }, [selectedPrizedDoor])
 
     return (

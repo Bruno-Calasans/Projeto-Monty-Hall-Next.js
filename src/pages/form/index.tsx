@@ -1,6 +1,6 @@
 
-import { Container, Group } from './style'
-import { useEffect, useState } from 'react'
+import { Container, Group } from '../../style/form.style'
+import { useState } from 'react'
 import Link from 'next/link'
 import Card from "../../components/Card"
 import DoorNumberInput from '../../components/DoorNumberInput'

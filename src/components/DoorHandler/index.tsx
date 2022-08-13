@@ -45,6 +45,7 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
         let createdDoorObjs = createDoorObjs()
         setDoorObjs(createdDoorObjs)
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [quant, prizedDoorNumber])
     
     // carrega todos os componentes Door
