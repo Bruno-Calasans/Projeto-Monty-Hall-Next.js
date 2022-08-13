@@ -9,4 +9,4 @@ Este é meu primeiro projeto utilizando o framework Next.js.
 
 ### Projeto Pronto 
 
-Acesse [Projeto Monty Hall](https://nextjs.org/docs/deployment) para ver como ficou!
+Acesse [Projeto Monty Hall](https://monty-hall-project.netlify.app/) para ver como ficou!
