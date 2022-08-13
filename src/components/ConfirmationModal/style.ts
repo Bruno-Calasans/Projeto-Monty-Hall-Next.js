@@ -8,11 +8,11 @@ export const Container = styled.div`
     left: 0%;
     top: 0%;
     z-index: 1;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4); 
-    opacity: 1;
     width: 100%;
     height: 100%; 
+    overflow: auto;
+    opacity: 1;
+    background-color: rgba(0,0,0,0.4);  
 `
 
 export const Content = styled.div`
@@ -28,16 +28,16 @@ export const Content = styled.div`
 
 export const Top = styled.div`
     display: flex;
-    background-color: #1A73FF;
     padding: 5px;
     border-radius: 4px 4px 0px 0px;
+    background-color: var(--top-bgColor);
 
     .title {
         display: flex;
         align-self: center;
         flex-grow: 1;
         font-weight: bold;
-        color: #fefefe;
+        color: var(--title-color)
     }
 
     .closeBtn {
@@ -48,12 +48,12 @@ export const Top = styled.div`
     .closeBtn:hover {
         color: red;
     }
-
 `
 
 export const Body = styled.div`
     display: flex;
     text-align: left;
+    font-weight: bold;
     align-items: center;
     flex-grow: 1;
     padding: 5px;
@@ -63,11 +63,11 @@ export const Bottom = styled.div`
     display: flex;
     justify-content: center;
 
-    button {
-        color: white;
-        background-color: #1A73FF;
+    .actionBtn {
         margin: 2px;
         padding: 8px;
+        color: white;
+        background-color: var(--top-bgColor);
     }
 `
 

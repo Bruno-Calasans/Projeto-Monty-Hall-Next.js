@@ -23,22 +23,22 @@ export const Frame = styled.div.attrs((props: FrameProps) => ({
     selected: props.selected
 }))
 `
-    border-top: 5px solid black;
-    border-left: 5px solid black;
-    border-right: 5px solid black; 
+    border-top: 5px solid var(--frame-color);
+    border-left: 5px solid var(--frame-color);
+    border-right: 5px solid var(--frame-color); 
     width: 90%;
     height: 100%;
 
     /* seleção da porta */
     &.selected {
-        border-top: 5px solid gold;
-        border-left: 5px solid gold;
-        border-right: 5px solid gold;  
+        border-top: 5px solid var(--selected-color);
+        border-left: 5px solid var(--selected-color);
+        border-right: 5px solid var(--selected-color);  
     }
 
-    &.selected .number { color: gold; }
+    &.selected .number { color: var(--selected-color); }
 
-    &.selected .knob { background-color: gold; }
+    &.selected .knob { background-color: var(--selected-color); }
 `
 
 /* segundo nível */
@@ -47,10 +47,10 @@ export const Area = styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
-    background-color: #803D13;
+    background-color: var(--area-color);
 
     &.open {
-        background-color: darkgray;
+        background-color: var(--open-color);
         justify-content: flex-end;
     }
 
@@ -69,17 +69,16 @@ export const Knob = styled.div`
     position: absolute;
     left: 5%;
     top: 60%;
-    background-color: black;
     width: 20px;
     height: 20px;
     border-radius: 50%;
-
+    background-color: var(--knob-color);
     cursor: pointer;
 `
 
 /* terceiro nível */
 export const Foot = styled.div`
-    background-color: gray;
+    background-color: var(--foot-color);
     width: 100%;
     height: 10px;
 `

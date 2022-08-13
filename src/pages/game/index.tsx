@@ -10,8 +10,19 @@ interface GameQuery { doors: number, prizedDoor: number}
 export default function Game() {
 
   const router = useRouter()
-  let [quant, setQuant] = useState(3)
-  let [prizedDoor, setPrizedDoor] = useState(1)
+  let [quant, setQuant] = useState(0)
+  let [prizedDoor, setPrizedDoor] = useState(0)
+
+  useEffect(() => { 
+
+    if(router.isReady) {
+      let {doors, prizedDoor} = router.query as unknown as GameQuery
+      setQuant(doors) 
+      setPrizedDoor(prizedDoor)
+      
+    }
+   
+  }, [router.isReady, router.query])
 
   // quando o jogo terminar
   const gameOverHandler = () => {
@@ -23,16 +34,6 @@ export default function Game() {
     let newSortedNumber = randInt(1, quant)
     setPrizedDoor(newSortedNumber)
   }
-
-  useEffect(() => { 
-
-    if(router.isReady) {
-      let {doors, prizedDoor} = router.query as unknown as GameQuery
-      setQuant(doors) 
-      setPrizedDoor(prizedDoor)
-    }
-   
-  }, [router.query])
 
   return (
     <Container>

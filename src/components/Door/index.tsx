@@ -1,10 +1,16 @@
-import {Area, Container, Foot, Frame, Knob, Number} from './style'
-import {  DoorProps } from '../../Types/Door'
+import { Area, Container, Foot, Frame, Knob, Number } from './style'
+import { DoorObj } from '../../models/Door'
 import Prize from '../Prize'
+
+interface DoorProps {
+    door: DoorObj
+    onSelection: (doorNumber: number) => void
+    onOpen: (doorNumber: number) => void
+}
 
 export default function Door({door, onSelection, onOpen}: DoorProps){
 
-    const {number, isSelected, isOpen, hasPrize} = door
+    const { number, isSelected, isOpen, hasPrize } = door
 
     const selectedStyle = (isSelected && !isOpen) ? 'selected': ''
     const openStyle = isOpen ? 'open': ''

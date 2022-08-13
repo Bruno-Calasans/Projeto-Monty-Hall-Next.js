@@ -14,8 +14,6 @@ export default function Card ({children, bgcolor, color, classe}: CardProps) {
     const style = {backgroundColor: bgcolor, color}
 
     return (
-        <Container 
-        style={style} 
-        className={classe}> {children} </Container>
+        <Container style={style} className={classe}>{ children }</Container>
     )
 }

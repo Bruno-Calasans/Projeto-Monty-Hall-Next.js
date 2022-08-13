@@ -6,13 +6,13 @@ import { useEffect } from 'react';
 interface DoorNumberInput {
     min: number
     max: number
-    onSelect: (value: number) => void}
+    onChange: (value: number) => void}
 
-export default function DoorNumberInput({min, max, onSelect }: DoorNumberInput) {
+export default function DoorNumberInput({min, max, onChange }: DoorNumberInput) {
 
     let [doorsNumber, setDoorsNumber] = useState(min)
 
-    const increment = (value: number) => { 
+    const changeHandler = (value: number) => { 
 
         let newValue =  doorsNumber + value
     
@@ -21,7 +21,7 @@ export default function DoorNumberInput({min, max, onSelect }: DoorNumberInput) 
         setDoorsNumber(newValue)
     }
 
-    useEffect(() => { onSelect(doorsNumber) }, [doorsNumber])
+    useEffect(() => { onChange(doorsNumber) }, [doorsNumber])
 
     return(
     <Container>
@@ -33,11 +33,11 @@ export default function DoorNumberInput({min, max, onSelect }: DoorNumberInput) 
         <Buttons>
             <button  
             className='actionBtn' 
-            onClick={e => increment(-1)}>-</button>
+            onClick={e => changeHandler(-1)}>-</button>
 
             <button 
             className='actionBtn' 
-            onClick={e => increment(1)}>+</button>
+            onClick={e => changeHandler(1)}>+</button>
         </Buttons>
 
   </Container>

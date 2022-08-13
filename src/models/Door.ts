@@ -1,14 +1,18 @@
 
-import { DoorObj } from "../Types/Door";
+export interface DoorObj {
+    number: number,
+    isSelected?: boolean 
+    isOpen?: boolean 
+    hasPrize?: boolean
+}
 
-export class Door implements DoorObj {
+export default class DoorModal implements DoorObj {
 
     constructor(
-        public number: number | string, 
+        public number: number, 
         public hasPrize = false,
         public isSelected = false,
         public isOpen = false
     ){}
 }
 
-export {Door as DoorModel}

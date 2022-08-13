@@ -8,8 +8,6 @@ export const Container = styled.div`
     min-width: 280px;
     height: 100vh;
     padding: 5px;
-
-    background-color: lightblue;
 `
 
 export const Group = styled.div``

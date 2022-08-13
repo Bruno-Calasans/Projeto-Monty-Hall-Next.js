@@ -1,11 +1,6 @@
 
 import styled from "styled-components";
 
-interface CardProps {
-    bgcolor?: string
-    color?: string
-}
-
 export const Container = styled.div`
     display: flex;
     justify-content: center;
@@ -16,10 +11,10 @@ export const Container = styled.div`
     height: 160px;
     padding: 10px;
 
+    border: 1px solid black;
     background-color: black;
     color: white;
-    border: 1px solid black;
-
+   
     opacity: 0.8;
     cursor: pointer;
 
@@ -30,5 +25,5 @@ export const Container = styled.div`
         font-size: 2em;
         font-weight: bold;
     }
-
 `
+

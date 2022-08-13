@@ -1,7 +1,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { DoorModel } from "../../models/Door" ;
+import DoorModel from "../../models/Door" ;
 import { Container, Title, Content, Buttons } from './style'
 import Door from "../Door";
 import ConfirmationModal from './../ConfirmationModal';
@@ -15,10 +15,52 @@ interface DoorHandlerProps {
 
 export default function DoorHandler({quant, prizedDoorNumber, onGameover, onReset}: DoorHandlerProps) {
 
-    let [selectedDoor, setSelectedDoor] = useState<number>(0)
     let [doorObjs, setDoorObjs] = useState<DoorModel[]>([])
+    let [selectedDoor, setSelectedDoor] = useState<number>(0)
     let [confirmationModal, setConfirmationModal] = useState(false)
     let [gameover, setGameover] = useState(false)
+
+    //console.log(quant, doorObjs);
+
+    // cria um array de objetos Door
+    const createDoorObjs = () => {
+
+        if(quant > 0 && prizedDoorNumber > 0 && prizedDoorNumber <= quant) {
+
+            let doorsArray = []
+
+            for(let i = 1; i <= quant; i++) {
+                let isPrized = (i == prizedDoorNumber)
+                doorsArray.push(new DoorModel(i, isPrized))
+            }
+            return doorsArray
+
+        } else {
+            return []
+        }
+    }
+
+    // cria os door objetos toda vez que o props quant mudar
+    useEffect(() => { 
+        let createdDoorObjs = createDoorObjs()
+        setDoorObjs(createdDoorObjs)
+
+    }, [quant, prizedDoorNumber])
+    
+    // carrega todos os componentes Door
+    const loadDoorComponents = () => {
+
+        if(doorObjs.length > 0) {
+
+            return doorObjs.map(door => (
+            <Door
+            key={door.number} 
+            door={door}
+            onSelection={selectionHandler}
+            onOpen={openHandler}/>
+            )) 
+        }
+    }
 
     // toda vez que uma porta for selecionada
     const selectionHandler = (selectedDoorNumber: number) => {
@@ -35,6 +77,7 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
                 }else { 
                     door.isSelected = false 
                 }
+                
                 return door
             })
 
@@ -77,54 +120,8 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
         setConfirmationModal(false)
     }
 
-    // cria um array de objetos Door
-    const createDoorObjs = () => {
-
-        if(quant > 0 && (prizedDoorNumber > 0 && prizedDoorNumber <= quant)) {
-
-            let doorObjs = []
-
-            for(let i = 1; i <= quant; i++) {
-                let isPrized = (i == prizedDoorNumber)
-                doorObjs.push(new DoorModel(i, isPrized))
-            }
-            setDoorObjs(doorObjs)
-        } 
-    }
-
-    // carrega todos os componentes Door
-    const loadDoorComponents = () => {
-
-        if(doorObjs.length > 0) {
-
-            return doorObjs.map(door => (
-            <Door
-            key={door.number} 
-            door={door}
-            onSelection={selectionHandler}
-            onOpen={openHandler}/>
-            )) 
-        }
-    }
-
-    // cria os door objetos na primeira vez e toda vez que 'quant' mudar
-    useEffect(() => { createDoorObjs() }, [quant])
-
-    // atualiza a porta premiada toda vez que 'prizeDoorNumber' mudar
-    useEffect(() => {
-
-        if(doorObjs.length > 0) {
-            const updatedDoors = doorObjs.map(door => {
-                door.hasPrize = (door.number === prizedDoorNumber)
-                return door
-            })
-            setDoorObjs(updatedDoors)
-        }
-
-    }, [prizedDoorNumber])
-
     // quando o jogo for reiniciado
-    const reset = () => {
+    const resetHandler = () => {
 
         if(doorObjs.length > 0) {
 
@@ -133,6 +130,7 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
                 door.isSelected = false
                 return door
             })
+
             setSelectedDoor(0)
             setDoorObjs(resetedDoors)
             setGameover(false)
@@ -155,9 +153,13 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
             />
 
             <Buttons>
-                <button className="actionBtn" onClick={reset}>Reiniciar</button>
+                <button
+                title="Desceleciona, fecha e troca o número da porta sorteada" 
+                className="actionBtn" onClick={resetHandler}>Reiniciar</button>
                 <Link href='/'>
-                    <button className="actionBtn" onClick={reset}>
+                    <button
+                    title="Volta à página inicial para configurar novamente" 
+                    className="actionBtn" onClick={resetHandler}>
                         Voltar Home
                     </button>
                 </Link>

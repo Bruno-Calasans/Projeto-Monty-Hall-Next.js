@@ -5,8 +5,19 @@ const GlobalStyle = createGlobalStyle`
 
 :root {
 
-    /* cores */
-    --test-color: black;
+    // geral 
+    --default-bgColor: burlywood;
+
+    // Cards 
+    --card1-bgColor: brown; // título Monty Hall
+    --card2-bgColor: gray; // Número de portas
+    --card3-bgColor: gray; // Sortear
+    --card4-bgColor: blue; // Iniciar
+
+    // Modal
+    --top-bgColor:#803D13;
+    --title-color: #fefefe;
+
 
     /* componente Prize */
     --prize-scale: 0.5;
@@ -14,9 +25,24 @@ const GlobalStyle = createGlobalStyle`
     --max-prize-height: 80px;
     --lace-thickness: 15px;
 
+    /* cores do Prize */
+    --top-bgImageColor: linear-gradient(to bottom, green, rgb(1, 95, 1));
+    --lace1-bgImageColor: linear-gradient(to bottom, red, rgb(195, 3, 3));
+    --lace2-bgImageColor: linear-gradient(to bottom, red, rgb(195, 3, 3));
+    --body-bgImageColor: linear-gradient(to bottom, rgb(1, 95, 1), green);
+
     /* componente Door */
     --door-area-width: 120px;
-    --door-area-height: 200px;   
+    --door-area-height: 200px;
+
+    /* cores de Door */
+    --frame-color: black;
+    --area-color: #803D13;  
+    --knob-color: black;
+    --foot-color: grey;
+    --open-color: grey;
+    --selected-color: gold;
+
 }
 
 * {
@@ -30,7 +56,7 @@ body {
     padding: 0;
     margin: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: burlywood;
+    background-color: var(--default-bgColor);
 }
 
 a {
@@ -44,8 +70,8 @@ a {
     padding: 8px;
     border: none;
     border-radius: 4px;
-    cursor: pointer;
     opacity: 0.8;
+    cursor: pointer;
 }
     
 .actionBtn:hover {

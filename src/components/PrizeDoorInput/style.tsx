@@ -5,9 +5,7 @@ import styled from "styled-components";
 export const Container = styled.div`
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
-
-   
+    flex-grow: 1; 
 `
 
 export const Title  = styled.div`
@@ -28,7 +26,9 @@ export const Buttons  = styled.div`
         font-size: 1.2em;
         margin: 2px; 
         padding: 10px;
-     }
+    }
+
+    .actionBtn:hover { background-color: lightblue; }
 `
 export const Checkbox  = styled.input`
     transform: scale(1.3);
