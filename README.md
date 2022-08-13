@@ -4,7 +4,7 @@
 ### Descrição
 Este é meu primeiro projeto utilizando o framework Next.js. Também usei ferramentas como TypeScript, Styled Components e React.
 
-É baseado no **Paradoxo de Monty Hall**. Se você nunca viu, recomendo pesquisar sobre.
+É baseado no **Paradoxo de Monty Hall** (Se você nunca viu, recomendo pesquisar sobre para se situar do contexto).
 
 ### Como funciona?
 
