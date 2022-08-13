@@ -1,8 +1,8 @@
 
-import Game from './game/[doors]';
-import Home from './home';
+import Game from './game';
+import Form from './form';
 
 export default function App() {
-  return <Home />
+  return <Form />
 }
 

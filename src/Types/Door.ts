@@ -1,6 +1,6 @@
 
 export interface DoorObj {
-    number: number | string,
+    number: number,
     isSelected?: boolean 
     isOpen?: boolean 
     hasPrize?: boolean
@@ -8,8 +8,8 @@ export interface DoorObj {
 
 export interface DoorProps {
     door: DoorObj
-    onSelection: (doorNumber: number | string) => void
-    onOpen: (doorNumber: number | string) => void
+    onSelection: (doorNumber: number) => void
+    onOpen: (doorNumber: number) => void
 }
 
 

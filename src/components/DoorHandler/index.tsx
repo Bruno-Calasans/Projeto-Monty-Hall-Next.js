@@ -7,23 +7,23 @@ import Door from "../Door";
 import ConfirmationModal from './../ConfirmationModal';
 
 interface DoorHandlerProps {
-    quant: string | number
-    prizedDoorNumber: string | number
-    onGameover: (value: boolean) => void
+    quant: number
+    prizedDoorNumber:  number
+    onGameover: () => void
     onReset: () => void
 }
 
 export default function DoorHandler({quant, prizedDoorNumber, onGameover, onReset}: DoorHandlerProps) {
 
-    const [selectedDoor, setSelectedDoor] = useState<string | number>('')
-    const [doorObjs, setDoorObjs] = useState<DoorModel[] | null>(null)
-    const [confirmationModal, setConfirmationModal] = useState(false)
-    const [gameover, setGameover] = useState(false)
+    let [selectedDoor, setSelectedDoor] = useState<number>(0)
+    let [doorObjs, setDoorObjs] = useState<DoorModel[]>([])
+    let [confirmationModal, setConfirmationModal] = useState(false)
+    let [gameover, setGameover] = useState(false)
 
     // toda vez que uma porta for selecionada
-    const selectionHandler = (selectedDoorNumber: number | string) => {
+    const selectionHandler = (selectedDoorNumber: number) => {
 
-        if(doorObjs && !gameover) {
+        if(doorObjs.length > 0 && !gameover) {
 
             const updatedDoorObjs = doorObjs.map(door => {
 
@@ -44,7 +44,7 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
     }
 
     // toda vez que clicar na maçaneta
-    const openHandler = (openDoorNumber: number | string) => {
+    const openHandler = (openDoorNumber: number) => {
 
         // abre o modal de confirmação
         if(!gameover) { setConfirmationModal(true)  }
@@ -54,18 +54,18 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
     const confirmationHandler = (confirm: boolean) => {
 
         // se realmente quiser abrir a porta
-        if(confirm && doorObjs) {
+        if(confirm && doorObjs.length > 0) {
 
             // abrindo a porta com o número selecionado
-            let updatedDoorObjs = doorObjs.map(door => {
+            const updatedDoorObjs = doorObjs.map(door => {
 
                 if(door.number == selectedDoor) { 
                     door.isOpen = true
 
                     // encerra o jogo se a porta aberta tiver o presente
                     if(door.hasPrize) { 
-                        onGameover(true)
-                        setGameover(true) 
+                        setGameover(true)  
+                        onGameover()
                     }
                 }
                 return door
@@ -77,47 +77,43 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
         setConfirmationModal(false)
     }
 
-    // cria todos os objetos Door
+    // cria um array de objetos Door
     const createDoorObjs = () => {
 
-        let doorObjs = []
+        if(quant > 0 && (prizedDoorNumber > 0 && prizedDoorNumber <= quant)) {
 
-        for(let i = 1; i <= quant; i++) {
+            let doorObjs = []
 
-            let isPrized = (i == prizedDoorNumber)
-            const door: DoorModel = new DoorModel(i, isPrized)
-            doorObjs.push(door)
-        }
-        return doorObjs
+            for(let i = 1; i <= quant; i++) {
+                let isPrized = (i == prizedDoorNumber)
+                doorObjs.push(new DoorModel(i, isPrized))
+            }
+            setDoorObjs(doorObjs)
+        } 
     }
 
     // carrega todos os componentes Door
     const loadDoorComponents = () => {
 
-        if(doorObjs) {
+        if(doorObjs.length > 0) {
 
             return doorObjs.map(door => (
             <Door
-
             key={door.number} 
             door={door}
             onSelection={selectionHandler}
-            onOpen={openHandler}/>)) 
+            onOpen={openHandler}/>
+            )) 
         }
     }
 
     // cria os door objetos na primeira vez e toda vez que 'quant' mudar
-    useEffect(() => {
-    
-        let createdDoorObjs = createDoorObjs()
-        setDoorObjs(createdDoorObjs)
-        
-    }, [quant])
+    useEffect(() => { createDoorObjs() }, [quant])
 
     // atualiza a porta premiada toda vez que 'prizeDoorNumber' mudar
     useEffect(() => {
 
-        if(doorObjs) {
+        if(doorObjs.length > 0) {
             const updatedDoors = doorObjs.map(door => {
                 door.hasPrize = (door.number === prizedDoorNumber)
                 return door
@@ -127,16 +123,17 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
 
     }, [prizedDoorNumber])
 
+    // quando o jogo for reiniciado
     const reset = () => {
 
-        if(doorObjs) {
+        if(doorObjs.length > 0) {
 
             const resetedDoors = doorObjs.map(door => {
                 door.isOpen = false
                 door.isSelected = false
                 return door
             })
-            setSelectedDoor('')
+            setSelectedDoor(0)
             setDoorObjs(resetedDoors)
             setGameover(false)
             onReset()
@@ -160,9 +157,12 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
             <Buttons>
                 <button className="actionBtn" onClick={reset}>Reiniciar</button>
                 <Link href='/'>
-                    <button className="actionBtn" onClick={reset}>Voltar Home</button>
+                    <button className="actionBtn" onClick={reset}>
+                        Voltar Home
+                    </button>
                 </Link>
             </Buttons>
+
         </Container> 
     )
 }
