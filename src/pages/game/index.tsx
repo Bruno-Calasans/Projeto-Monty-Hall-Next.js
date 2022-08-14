@@ -17,8 +17,8 @@ export default function Game() {
 
     if(router.isReady) {
       let {doors, prizedDoor} = router.query as unknown as GameQuery
-      setQuant(doors) 
-      setPrizedDoor(prizedDoor)
+      setQuant(Number(doors)) 
+      setPrizedDoor(Number(prizedDoor))
       
     }
    

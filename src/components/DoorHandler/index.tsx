@@ -5,10 +5,13 @@ import DoorModel from "../../models/Door" ;
 import { Container, Title, Content, Buttons } from './style'
 import Door from "../Door";
 import ConfirmationModal from './../ConfirmationModal';
+import {randInt} from '../../functions/others'
+
+
 
 interface DoorHandlerProps {
     quant: number
-    prizedDoorNumber:  number
+    prizedDoorNumber: number
     onGameover: () => void
     onReset: () => void
 }
@@ -16,7 +19,7 @@ interface DoorHandlerProps {
 export default function DoorHandler({quant, prizedDoorNumber, onGameover, onReset}: DoorHandlerProps) {
 
     let [doorObjs, setDoorObjs] = useState<DoorModel[]>([])
-    let [selectedDoor, setSelectedDoor] = useState<number>(0)
+    let [selectedDoorNumber, setSelectedDoor] = useState<number>(0)
     let [confirmationModal, setConfirmationModal] = useState(false)
     let [gameover, setGameover] = useState(false)
 
@@ -64,32 +67,31 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
     }
 
     // toda vez que uma porta for selecionada
-    const selectionHandler = (selectedDoorNumber: number) => {
+    const selectionHandler = (selectedDoor: number) => {
 
         if(doorObjs.length > 0 && !gameover) {
 
             const updatedDoorObjs = doorObjs.map(door => {
 
-                // alterna a porta clicada
-                if(door.number == selectedDoorNumber) {
-                   door.isSelected = !door.isSelected 
+                // seleciona a prota escolhida
+                if(door.number == selectedDoor) {
+                   door.select()
 
                 // deseleciona todas as outras 
                 }else { 
-                    door.isSelected = false 
+                    door.deselect() 
                 }
-                
+
                 return door
             })
 
             setDoorObjs(updatedDoorObjs)
-            setSelectedDoor(selectedDoorNumber)
+            setSelectedDoor(selectedDoor)
         }
     }
 
     // toda vez que clicar na maçaneta
     const openHandler = (openDoorNumber: number) => {
-
         // abre o modal de confirmação
         if(!gameover) { setConfirmationModal(true)  }
     }
@@ -100,26 +102,62 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
         // se realmente quiser abrir a porta
         if(confirm && doorObjs.length > 0) {
 
-            // abrindo a porta com o número selecionado
+            let closedDoors = doorObjs.filter(door => !door.isOpen)
+            let sortedDoorNumber: number
+
             const updatedDoorObjs = doorObjs.map(door => {
 
-                if(door.number == selectedDoor) { 
-                    door.isOpen = true
+                let { number } = door
 
-                    // encerra o jogo se a porta aberta tiver o presente
-                    if(door.hasPrize) { 
-                        setGameover(true)  
-                        onGameover()
+                if(closedDoors.length > 2) {
+
+                    // a porta selecionada é diferente da porta premiada
+                    if(selectedDoorNumber !== prizedDoorNumber) {
+
+                        // abrir todas as portas não selecionadas e não premiadas
+                        if(number !== selectedDoorNumber 
+                        && number !== prizedDoorNumber) {
+                            door.open()
+                        }
+
+                    // quando a porta selecionada é igual a porta premiada
+                    }else {
+
+                        // sortear uma porta pra ficar fechada
+                        if(!sortedDoorNumber) {
+
+                            let possibleDoors = doorObjs.filter(door => {
+                                return door.number !== selectedDoorNumber
+                            })
+    
+                            sortedDoorNumber = possibleDoors[randInt(0, possibleDoors.length - 1)].number
+
+                        }
+                        
+                        // fecha todas as outras portas que não sejam as portas selecionada e sorteada
+                        if(number !== sortedDoorNumber 
+                            && number !== selectedDoorNumber) { 
+                            door.open() 
+                        }
                     }
+
+                // abre todas as portas se tiver apenas duas
+                }else if (closedDoors.length === 2) {
+                    door.open()
                 }
+
+                // retorna a porta
                 return door
             })
+
             setDoorObjs(updatedDoorObjs)
         }
 
+
         // fecha o modal de confirmação
-        setConfirmationModal(false)
+        setConfirmationModal(false)    
     }
+
 
     // quando o jogo for reiniciado
     const resetHandler = () => {
@@ -127,8 +165,8 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
         if(doorObjs.length > 0) {
 
             const resetedDoors = doorObjs.map(door => {
-                door.isOpen = false
-                door.isSelected = false
+                door.close()
+                door.deselect()
                 return door
             })
 
@@ -149,7 +187,7 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
             <ConfirmationModal 
             show={confirmationModal}
             title="Confirmar"
-            msg={`Deseja realmente abrir a porta ${selectedDoor}?`}
+            msg={`Deseja realmente abrir a porta ${selectedDoorNumber}?`}
             onConfirmation={confirmationHandler}
             />
 

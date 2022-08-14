@@ -4,6 +4,10 @@ export interface DoorObj {
     isSelected?: boolean 
     isOpen?: boolean 
     hasPrize?: boolean
+    open(): void
+    close(): void
+    select(): void
+    deselect(): void
 }
 
 export default class DoorModal implements DoorObj {
@@ -14,5 +18,10 @@ export default class DoorModal implements DoorObj {
         public isSelected = false,
         public isOpen = false
     ){}
+
+    open(){ this.isOpen = true }
+    close(){ this.isOpen = false }
+    select(){this.isSelected = true }
+    deselect(){ this.isSelected = false }
 }
 
