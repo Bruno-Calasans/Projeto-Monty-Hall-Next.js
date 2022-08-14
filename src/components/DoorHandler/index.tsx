@@ -150,9 +150,12 @@ export default function DoorHandler({quant, prizedDoorNumber, onGameover, onRese
                 return door
             })
 
+            if(doorObjs.filter(door => door.isOpen).length === quant) {
+                setGameover(true)
+                onGameover()
+            }
             setDoorObjs(updatedDoorObjs)
         }
-
 
         // fecha o modal de confirmação
         setConfirmationModal(false)    
